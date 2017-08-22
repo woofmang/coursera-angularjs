@@ -1,2 +1,2 @@
 # coursera-angularjs
-supe-duper adventure
+super-duper adventure
