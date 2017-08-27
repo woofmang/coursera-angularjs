@@ -7,23 +7,29 @@
   function LunchCheckController($scope) {
     $scope.lunchContents = "";
     $scope.lunchCheckResult = "";
+    $scope.messageEmpty = false;
+    $scope.messageNotOk = false;
+    $scope.messageOk = false;
     $scope.checkLunch = function() {
       var result = "";
       var number = checkIt();
       if (number == 0) {
-        console.log("number is 0");
+        $scope.messageEmpty = true;
         result = "C'mon; gimme something to work with here...";
       } else if (number > 3) {
-        console.log("number is more than 3");
+        $scope.messageNotOk = true;
         result = "Too much!";
       } else if (number <= 3) {
-        console.log("number is 3 or less");
+        $scope.messageOk = true;
         result = "Enjoy!"
       }
       $scope.lunchCheckResult = result;
     };
 
     $scope.clearResult = function () {
+      $scope.messageEmpty = false;
+      $scope.messageNotOk = false;
+      $scope.messageOk = false;
       $scope.lunchCheckResult = "";
     }
 
