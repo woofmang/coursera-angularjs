@@ -1,21 +1,17 @@
+
 <!DOCTYPE html>
-<html ng-app="MsgApp">
+<html ng-app="DIApp">
   <head>
     <meta charset="utf-8">
     <script src="angular.min.js"></script>
     <script src="app.js"></script>
     <style>div {margin-bottom: 1em;}</style>
-    <title>Expressions and Interpolation</title>
+    <title>Dependency Injection in AngularJS</title>
   </head>
   <body>
-    <h1>Expressions and Interpolation</h1>
-    <div ng-controller="MsgController">
-        {{name}} has a message for you: <br>
-        {{sayMessage()}}
-        <div class="">
-          <button ng-click="feedYaakov()">Feed Yaakov</button><br>
-          <img ng-src="images/yaakov_{{stateOfBeing}}.png" alt="">
-        </div>
+    <h1>Dependency Injection in AngularJS</h1>
+    <div ng-controller="DIController">
+        <input type="text" ng-model="name" ng-blur=upper();>
     </div>
   </body>
 </html>

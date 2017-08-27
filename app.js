@@ -1,17 +1,13 @@
 (function(){
   'use strict';
-  angular.module('MsgApp', [])
-  .controller('MsgController', MsgController);
-
-  MsgController.$inject = ['$scope'];
-  function MsgController($scope) {
-    $scope.name = "Yaakov";
-    $scope.stateOfBeing = 'hungry';
-    $scope.sayMessage = function() {
-      return $scope.name + " likes to eat healthy snacks at night!";
-    };
-    $scope.feedYaakov = function() {
-      $scope.stateOfBeing = 'fed';
+  angular.module('DIApp', [])
+  .controller('DIController', DIController);
+  DIController.$inject = ['$scope', '$filter'];
+  function DIController($scope, $filter) {
+    $scope.name = "Kevin";
+    $scope.upper = function() {
+      var upCase = $filter('uppercase');
+      $scope.name = upCase($scope.name);
     };
   }
 })();
