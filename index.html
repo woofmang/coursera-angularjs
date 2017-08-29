@@ -5,15 +5,16 @@
     <script src="angular.min.js"></script>
     <script src="app.js"></script>
     <style>div {margin-bottom: 1em;}</style>
-    <title>Expressions and Interpolation</title>
+    <title>Filters</title>
   </head>
   <body>
-    <h1>Expressions and Interpolation</h1>
+    <h1>Filters</h1>
     <div ng-controller="MsgController">
         {{name}} has a message for you: <br>
         {{sayMessage()}}
         <div class="">
           <button ng-click="feedYaakov()">Feed Yaakov</button><br>
+          Cost: {{cookieCost | currency : "#blah" : 4}}<br>
           <img ng-src="images/yaakov_{{stateOfBeing}}.png" alt="">
         </div>
     </div>
