@@ -5,13 +5,15 @@
     <script src="angular.min.js"></script>
     <script src="app.js"></script>
     <style>div {margin-bottom: 1em;}</style>
-    <title>Filters</title>
+    <title>Custom Filters</title>
   </head>
   <body>
-    <h1>Filters</h1>
+    <h1>Custom Filters</h1>
     <div ng-controller="MsgController">
         {{name}} has a message for you: <br>
-        {{sayMessage()}}
+        {{sayMessage()}}<br>
+        The truth: {{ sayMessage() | truth : 'healthy snacks' : 'cookies' }}<br>
+        The BIG truth: {{ sayMessage() | truth : 'healthy snacks' : 'cookies' | uppercase }}
         <div class="">
           <button ng-click="feedYaakov()">Feed Yaakov</button><br>
           Cost: {{cookieCost | currency : "#blah" : 4}}<br>
