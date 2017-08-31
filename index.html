@@ -1,24 +1,25 @@
 <!DOCTYPE html>
-<html ng-app="MsgApp">
+<html ng-app="CounterApp">
   <head>
     <meta charset="utf-8">
     <script src="angular.min.js"></script>
     <script src="app.js"></script>
     <style>div {margin-bottom: 1em;}</style>
-    <title>Custom Filters</title>
+    <title>The Digest Cycle</title>
   </head>
   <body>
-    <h1>Custom Filters</h1>
-    <div ng-controller="MsgController">
-        {{name}} has a message for you: <br>
-        {{sayMessage()}}<br>
-        The truth: {{ sayMessage() | truth : 'healthy snacks' : 'cookies' }}<br>
-        The BIG truth: {{ sayMessage() | truth : 'healthy snacks' : 'cookies' | uppercase }}
-        <div class="">
-          <button ng-click="feedYaakov()">Feed Yaakov</button><br>
-          Cost: {{cookieCost | currency : "#blah" : 4}}<br>
-          <img ng-src="images/yaakov_{{stateOfBeing}}.png" alt="">
-        </div>
+    <h1>The Digest Cycle</h1>
+    <div ng-controller="CounterController">
+      <button ng-click="showNumberOfWatchers()">Log # of Watchers</button><br>
+      <input type="text" ng-model="name">
+      <div>
+        <button ng-click="countOnce()">Up Once Counter (once)</button>
+        <button ng-click="upCounter()">Increment Counter (once)</button>
+      </div>
+      <div class="">
+        Once Counter: {{ onceCounter }}<br>
+        Regular Counter: {{ counter }}
+      </div>
     </div>
   </body>
 </html>
