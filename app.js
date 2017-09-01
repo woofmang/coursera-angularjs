@@ -1,19 +1,29 @@
 (function(){
   'use strict';
-  angular.module('CounterApp', [])
-  .controller('CounterController', CounterController);
+  angular.module('BindingApp', [])
+  .controller('BindingController', BindingController);
 
-  CounterController.$inject = ['$scope','$timeout'];
+  BindingController.$inject = ['$scope'];
 
-  function CounterController($scope, $timeout) {
+  function BindingController($scope) {
 
-    $scope.counter = 0;
+    $scope.firstName = "Kevin";
+    // $scope.fullName = "";
 
-    $scope.upCounter = function(){
-      $timeout(function(){
-        $scope.counter++;
-        console.log("Counter incremented");
-      }, 2000);
+    $scope.showNumberOfWatchers = function(){
+      console.log("# of Watchers: ", $scope.$$watchersCount);
+    };
+
+    $scope.setFullName = function(){
+      $scope.fullName = $scope.firstName + " " + "Foster";
+    };
+
+    $scope.logFirstName = function(){
+      console.log("First name is: ", $scope.firstName);
+    };
+
+    $scope.logFullName = function() {
+      console.log("Full name is: ", $scope.fullName);
     };
 }
 
