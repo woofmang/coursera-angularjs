@@ -1,29 +1,45 @@
 (function(){
   'use strict';
-  angular.module('BindingApp', [])
-  .controller('BindingController', BindingController);
 
-  BindingController.$inject = ['$scope'];
+  var shoppingList1 = [
+    'Milk', 'Donuts', 'Cookies', 'Chocolate', 'Peanut Butter', 'Pepto Bismol',
+    'Pepto Bismol (Chocolate Flavor)', 'Pepto Bismol (Cookie Flavor)'
+  ];
 
-  function BindingController($scope) {
+  var shoppingList2 = [
+    {
+      name: 'Milk',
+      quantity: '2'
+    },
+    {
+      name: 'Donuts',
+      quantity: '200'
+    },
+    {
+      name: 'Cookies',
+      quantity: '300'
+    },
+    {
+      name: 'Chocolate',
+      quantity: '5'
+    }
+  ];
 
-    $scope.firstName = "Kevin";
-    // $scope.fullName = "";
+  angular.module('ShoppingListApp', [])
+  .controller('ShoppingListController', ShoppingListController);
 
-    $scope.showNumberOfWatchers = function(){
-      console.log("# of Watchers: ", $scope.$$watchersCount);
-    };
+  ShoppingListController.$inject = ['$scope'];
+  function ShoppingListController($scope) {
+    $scope.shoppingList1 = shoppingList1;
+    $scope.shoppingList2 = shoppingList2;
 
-    $scope.setFullName = function(){
-      $scope.fullName = $scope.firstName + " " + "Foster";
-    };
+    $scope.addToList = function() {
+      var newItem = {
+        name: $scope.newItemName,
+        quantity: $scope.newItemQuantity
+      };
 
-    $scope.logFirstName = function(){
-      console.log("First name is: ", $scope.firstName);
-    };
-
-    $scope.logFullName = function() {
-      console.log("Full name is: ", $scope.fullName);
+      $scope.shoppingList2.push(newItem);
     };
 }
 
