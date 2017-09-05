@@ -52,13 +52,3 @@ console.log("myDog is ", myDog);
 // but just calling the function without the "new" keyword doesn't
 // create an instance; 'this' in this context is the window object (global scope)
 Dog("Max2");
-
-var student1 = {
-  message: "I LOVE this course!"
-};
-
-function Person(name) {
-  this.name = name;
-}
-var p = new Person("Yaakov");
-console.log(p);
