@@ -1,23 +1,26 @@
 <!DOCTYPE html>
-<html ng-app="ControllerAsApp">
+<html ng-app="ShoppingListApp">
   <head>
     <meta charset="utf-8">
     <script src="angular.min.js"></script>
     <script src="app.js"></script>
     <style>div {margin-bottom: 1em;}</style>
-    <title>Controller As Syntax</title>
+    <title>Custom Service</title>
   </head>
   <body>
-    <h1>Controller As Syntax</h1>
-    <div ng-controller="ParentController1">
-      <div ng-controller="ChildController1"></div>
+    <h1>Custom Service</h1>
+    <div ng-controller="ShoppingListAddController as itemAdder">
+      <input type="text" ng-model="itemAdder.itemName" placeholder="item name">
+      <input type="text" ng-model="itemAdder.itemQuantity" placeholder="quantity">
+      <button type="button" ng-click="itemAdder.addItem()">Add Item to List</button>
     </div>
-    <div ng-controller="ParentController2 as parent">
-      Parent value: {{ parent.value }}
-      <div ng-controller="ChildController2 as child">
-        Child value: {{ child.value }}<br>
-        Parent value: {{ parent.value }}
-      </div>
+    <div ng-controller="ShoppingListShowController as showList">
+      <ol>
+        <li ng-repeat="item in showList.items">
+          {{ item.quantity }} of {{ item.name }}
+          <button type="button" ng-click="showList.removeItem($index)">Remove Item</button>
+        </li>
+      </ol>
     </div>
   </body>
 </html>
