@@ -5,30 +5,30 @@
     <script src="angular.min.js"></script>
     <script src="app.js"></script>
     <link rel="stylesheet" href="styles.css">
-    <title>Custom Service</title>
+    <title>Custom Service Through a Provider</title>
   </head>
   <body>
-    <h1>Custom Service through a Factory</h1>
+    <h1>Custom Service through a Provider</h1>
 
     <!-- List 1: unlimited items -->
-    <div id="list1" ng-controller="ShoppingListController1 as list1">
-      <h3>Shopping List #1</h3>
-      <input type="text" ng-model="list1.itemName" placeholder="item name">
-      <input type="text" ng-model="list1.itemQuantity" placeholder="quantity">
-      <button ng-click="list1.addItem()">Add Item to List</button>
+    <div id="list1" ng-controller="ShoppingListController as list">
+      <h3>Shopping List</h3>
+      <input type="text" ng-model="list.itemName" placeholder="item name">
+      <input type="text" ng-model="list.itemQuantity" placeholder="quantity">
+      <button ng-click="list.addItem()">Add Item to List</button>
       <ol>
-        <li ng-repeat="item in list1.items">
+        <li ng-repeat="item in list.items">
           {{ item.quantity }} of {{ item.name }}
-          <button type="button" ng-click="list1.removeItem($index)">Remove Item</button>
+          <button type="button" ng-click="list.removeItem($index)">Remove Item</button>
         </li>
       </ol>
       <div class="error">
-        Error: {{ list1.errorMessage }}
+        Error: {{ list.errorMessage }}
       </div>
     </div>
 
     <!-- List 2: limited items  -->
-    <div id="list2" ng-controller="ShoppingListController2 as list2">
+    <!-- <div id="list2" ng-controller="ShoppingListController2 as list2">
       <h3>Shopping List #2 (limit 3 items)</h3>
       <input type="text" ng-model="list2.itemName" placeholder="item name">
       <input type="text" ng-model="list2.itemQuantity" placeholder="quantity">
@@ -42,7 +42,7 @@
       <div class="error">
         Error: {{ list2.errorMessage }}
       </div>
-    </div>
+    </div> -->
 
   </body>
 </html>
