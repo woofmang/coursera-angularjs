@@ -1,42 +1,25 @@
 <!DOCTYPE html>
-<html ng-app="ShoppingListApp">
+<html ng-app="ShoppingListPromiseApp">
   <head>
     <meta charset="utf-8">
     <script src="angular.min.js"></script>
     <script src="app.js"></script>
     <link rel="stylesheet" href="styles.css">
-    <title>Custom Service Through a Provider</title>
+    <title>Shopping List with a Promise</title>
   </head>
   <body>
-    <h1>Custom Service through a Factory</h1>
-
-    <!-- List 1: unlimited items -->
-    <div id="list1" ng-controller="ShoppingListController as list">
+    <h1>Shopping List with a Promise</h1>
+    <div ng-controller="ShoppingListController as list">
       <h3>Shopping List</h3>
       <input type="text" ng-model="list.itemName" placeholder="item name">
-      <input type="text" ng-model="list.itemQuantity" placeholder="quantity">
-      <button ng-click="list.addItem()">Add Item to List</button>
+      <input type="text" ng-model="list.itemQuantity" placeholder="quantity"> boxes
+      <button ng-click="list.addItem()">Add Item</button>
       <ol>
         <li ng-repeat="item in list.items">
-          {{ item.quantity }} of {{ item.name }}
-          <button type="button" ng-click="list.removeItem($index)">Remove Item</button>
+          {{ item.quantity }} boxes of {{ item.name }} &nbsp;
+          <button ng-click="list.removeItem($index)">Remove Item</button>
         </li>
       </ol>
-      <!-- ng-if removes element from the DOM if the condition is falsey -->
-      <!-- <div ng-if="list.errorMessage" class="error">
-        Error: {{ list.errorMessage }}
-      </div> -->
-      <!-- ng-show and ng-hide add CSS classes to show or hide the element
-          based on the truthiness or falsieness of the condition. So, if
-          you need to manipulate an element while it's hidden, use on of
-          these instead of ng-if -->
-      <!-- <div ng-show="list.errorMessage" class="error">
-        Error: {{ list.errorMessage }}
-      </div> -->
-      <div ng-hide="!list.errorMessage" class="error">
-        Error: {{ list.errorMessage }}
-      </div>
     </div>
-
   </body>
 </html>
