@@ -6,7 +6,25 @@ angular.module('ShoppingListDirectiveApp', [])
 .controller('ShoppingListController2', ShoppingListController2)
 .factory('ShoppingListFactory', ShoppingListFactory)
 .directive('listItemDescription', ListItemDescription)
-.directive('listItem', ListItem);
+.directive('shoppingList', ShoppingList);
+
+function ShoppingList() {
+  var ddo = {
+    templateUrl: 'shoppingList.html',
+    // Isolate Scope
+    scope: {
+      // use "=" for 2-way binding: changes in the DOM are reflected here, and vice versa
+      list: '=myList',
+      // use "@" for 1-way binding: changes in the DOM are reflected here,
+      // but changes here are not reflected in the DOM
+      title: '@title'
+      // NOTE: using "=" or "@" by themselves assumes that the bound property in
+      // the DOM has the de-normalized version of the name in the directive
+    }
+  };
+
+  return ddo;
+}
 
 //
 function ListItem() {
@@ -39,16 +57,20 @@ function ShoppingListController1(ShoppingListFactory) {
   var shoppingList = ShoppingListFactory();
 
   list.items = shoppingList.getItems();
+  var origTitle = "Shopping List #1";
+  list.title = origTitle + " (" + list.items.length + " items)";
 
   list.itemName = "";
   list.itemQuantity = "";
 
   list.addItem = function () {
     shoppingList.addItem(list.itemName, list.itemQuantity);
+    list.title = origTitle + " (" + list.items.length + " items)";
   }
 
   list.removeItem = function (itemIndex) {
     shoppingList.removeItem(itemIndex);
+    list.title = origTitle + " (" + list.items.length + " items)";
   };
 }
 
