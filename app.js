@@ -13,13 +13,15 @@ function ShoppingList() {
     templateUrl: 'shoppingList.html',
     // Isolate Scope
     scope: {
-      // use "=" for 2-way binding: changes in the DOM are reflected here, and vice versa
+      // use "=" for 2-way binding: changes in the DOM are reflected here,
+      // and changes here are reflected in the DOM
       list: '=myList',
       // use "@" for 1-way binding: changes in the DOM are reflected here,
-      // but changes here are not reflected in the DOM
+      // but changes here are NOT reflected in the DOM
       title: '@title'
       // NOTE: using "=" or "@" by themselves assumes that the bound property in
-      // the DOM has the de-normalized version of the name in the directive
+      // the DOM has the de-normalized version of the name in the directive. For
+      // example, "myList: '='" would be a 2-way binding to "my-list" in the DOM
     }
   };
 
@@ -66,7 +68,7 @@ function ShoppingListController1(ShoppingListFactory) {
   list.addItem = function () {
     shoppingList.addItem(list.itemName, list.itemQuantity);
     list.title = origTitle + " (" + list.items.length + " items)";
-  }
+  };
 
   list.removeItem = function (itemIndex) {
     shoppingList.removeItem(itemIndex);
