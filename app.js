@@ -2,30 +2,43 @@
 'use strict';
 
 angular.module('ShoppingListDirectiveApp', [])
-.controller('ShoppingListController1', ShoppingListController1)
-.controller('ShoppingListController2', ShoppingListController2)
+.controller('ShoppingListController', ShoppingListController)
 .factory('ShoppingListFactory', ShoppingListFactory)
-.directive('listItemDescription', ListItemDescription)
-.directive('shoppingList', ShoppingList);
+// .controller('ShoppingListDirectiveController', ShoppingListDirectiveController)
+.directive('shoppingList', ShoppingListDirective);
 
-function ShoppingList() {
+function ShoppingListDirective() {
   var ddo = {
     templateUrl: 'shoppingList.html',
-    // Isolate Scope
     scope: {
-      // use "=" for 2-way binding: changes in the DOM are reflected here,
-      // and changes here are reflected in the DOM
-      list: '=myList',
-      // use "@" for 1-way binding: changes in the DOM are reflected here,
-      // but changes here are NOT reflected in the DOM
-      title: '@title'
-      // NOTE: using "=" or "@" by themselves assumes that the bound property in
-      // the DOM has the de-normalized version of the name in the directive. For
-      // example, "myList: '='" would be a 2-way binding to "my-list" in the DOM
-    }
+      items: '<',
+      title: '@'
+    },
+    controller: ShoppingListDirectiveController,
+    controllerAs: 'list',
+    // alternatively,if we declare the controller on the module (as above,
+    // commented out), we could replace the above two lines with th one below,
+    // and then, we'd be able to reference this controller anywhere in the app
+    // controller: 'ShoppingListDirectiveController as list',
+    bindToController: true
   };
 
   return ddo;
+}
+
+function ShoppingListDirectiveController() {
+  var list = this;
+
+  list.cookiesInList = function() {
+    for (var i = 0; i < list.items.length; i++) {
+      var name = list.items[i].name;
+      if (name.toLowerCase().indexOf("cookie") !== -1) {
+        return true;
+      }
+    }
+    return false;
+  };
+
 }
 
 //
@@ -51,8 +64,8 @@ function ListItemDescription() {
 
 
 // LIST #1 - controller
-ShoppingListController1.$inject = ['ShoppingListFactory'];
-function ShoppingListController1(ShoppingListFactory) {
+ShoppingListController.$inject = ['ShoppingListFactory'];
+function ShoppingListController(ShoppingListFactory) {
   var list = this;
 
   // Use factory to create new shopping list service
@@ -75,35 +88,6 @@ function ShoppingListController1(ShoppingListFactory) {
     list.title = origTitle + " (" + list.items.length + " items)";
   };
 }
-
-
-// LIST #2 - controller
-ShoppingListController2.$inject = ['ShoppingListFactory'];
-function ShoppingListController2(ShoppingListFactory) {
-  var list = this;
-
-  // Use factory to create new shopping list service
-  var shoppingList = ShoppingListFactory(3);
-
-  list.items = shoppingList.getItems();
-
-  list.itemName = "";
-  list.itemQuantity = "";
-
-  list.addItem = function () {
-    try {
-      shoppingList.addItem(list.itemName, list.itemQuantity);
-    } catch (error) {
-      list.errorMessage = error.message;
-    }
-
-  };
-
-  list.removeItem = function (itemIndex) {
-    shoppingList.removeItem(itemIndex);
-  };
-}
-
 
 // If not specified, maxItems assumed unlimited
 function ShoppingListService(maxItems) {
