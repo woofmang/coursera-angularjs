@@ -12,7 +12,15 @@ function ShoppingListDirective() {
     templateUrl: 'shoppingList.html',
     scope: {
       items: '<',
-      title: '@'
+      title: '@',
+      badRemove: '=',
+      // reference binding allows us to execute an expression in the parent's scope
+      // parent's template must declare an attribute providing a reference to the
+      // expression (e.g., method call) om the parent, and argument keys for the
+      // directive to bind values to
+      // the directive calls the referenced method and provides a map of argument
+      // key: value pairs (this is how the directive passes data to the parent)
+      onRemove: '&'
     },
     controller: ShoppingListDirectiveController,
     controllerAs: 'list',
@@ -42,14 +50,14 @@ function ShoppingListDirectiveController() {
 }
 
 //
-function ListItem() {
-  var ddo = {
-    restrict: "E",
-    templateUrl: 'listItem.html'
-  };
-
-  return ddo;
-}
+// function ListItem() {
+//   var ddo = {
+//     restrict: "E",
+    // templateUrl: 'listItem.html'
+//   };
+//
+//   return ddo;
+// }
 
 // we can access item.quantity and item.name because
 // directives inherit the same scope as the controller
@@ -84,6 +92,8 @@ function ShoppingListController(ShoppingListFactory) {
   };
 
   list.removeItem = function (itemIndex) {
+    console.log("'this' is: ", this);
+    this.lastRemoved = "Last item removed was " + this.items[itemIndex].name;
     shoppingList.removeItem(itemIndex);
     list.title = origTitle + " (" + list.items.length + " items)";
   };
