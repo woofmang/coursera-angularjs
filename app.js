@@ -4,7 +4,6 @@
 angular.module('ShoppingListDirectiveApp', [])
 .controller('ShoppingListController', ShoppingListController)
 .factory('ShoppingListFactory', ShoppingListFactory)
-// .controller('ShoppingListDirectiveController', ShoppingListDirectiveController)
 .directive('shoppingList', ShoppingListDirective);
 
 function ShoppingListDirective() {
@@ -13,25 +12,54 @@ function ShoppingListDirective() {
     scope: {
       items: '<',
       title: '@',
-      badRemove: '=',
-      // reference binding allows us to execute an expression in the parent's scope
-      // parent's template must declare an attribute providing a reference to the
-      // expression (e.g., method call) om the parent, and argument keys for the
-      // directive to bind values to
-      // the directive calls the referenced method and provides a map of argument
-      // key: value pairs (this is how the directive passes data to the parent)
-      onRemove: '&'
+      onRemove: '&',
     },
     controller: ShoppingListDirectiveController,
     controllerAs: 'list',
-    // alternatively,if we declare the controller on the module (as above,
-    // commented out), we could replace the above two lines with th one below,
-    // and then, we'd be able to reference this controller anywhere in the app
-    // controller: 'ShoppingListDirectiveController as list',
-    bindToController: true
+    bindToController: true,
+    link: ShoppingListDirectiveLink
   };
 
   return ddo;
+}
+
+function ShoppingListDirectiveLink(scope, element, attrs, controller) {
+  // console.log("Link scope is: ", scope);
+  // console.log("Controller instance is: ", controller);
+  // console.log("Element is: ", element);
+
+  scope.$watch('list.cookiesInList()', function(newValue, oldValue) {
+    console.log("Old value: ", oldValue);
+    console.log("New value: ", newValue);
+
+    if (newValue === true) {
+      displayCookieWarning();
+    }
+    else {
+      removeCookieWarning();
+    }
+  });
+
+  function displayCookieWarning() {
+    // using jQlite (built-in watered-down version of jQuery)
+    // var warningElem = element.find("div");
+    // console.log(warningElem);
+    // warningElem.css('display', 'block');
+
+    // using jQuery (jQuery must be included before angular in html)
+    var warningElem = element.find("div.error");
+    warningElem.slideDown(900);
+  }
+
+  function removeCookieWarning() {
+      // using jqlite
+      // var warningElem = element.find("div");
+      // warningElem.css('display', 'none');
+
+      // using jquery
+      var warningElem = element.find("div.error");
+      warningElem.slideUp(900);
+  }
 }
 
 function ShoppingListDirectiveController() {
