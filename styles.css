@@ -5,19 +5,11 @@ body {
   float: left;
 }
 #list2 {
-  margin-left: 20px;
+  margin-left: 40px;
 }
 
 .error {
   color: red;
   font-weight: bold;
   display: none;
-}
-
-.warning {
-  font-style: italic;
-}
-
-.title {
-  background-color: #383838;
 }

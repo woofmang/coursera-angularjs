@@ -9,56 +9,27 @@ angular.module('ShoppingListComponentApp', [])
   controller: ShoppingListComponentController,
   bindings: {
     items: '<',
-    myTitle: '@title',
+    myTitle: '@',
     onRemove: '&'
   }
 });
 
-ShoppingListComponentController.$inject = ['$scope', '$element']
-function ShoppingListComponentController($scope, $element) {
+function ShoppingListComponentController() {
   var $ctrl = this;
 
-  $ctrl.cookiesInList = function () {
+  $ctrl.cookiesInList = function() {
     for (var i = 0; i < $ctrl.items.length; i++) {
       var name = $ctrl.items[i].name;
       if (name.toLowerCase().indexOf("cookie") !== -1) {
         return true;
       }
     }
-
     return false;
-  };
-
-  $ctrl.remove = function (myIndex) {
-    $ctrl.onRemove({ index: myIndex });
-  };
-
-  $ctrl.$onInit = function () {
-    console.log("We are in $onInit()");
-  };
-
-  $ctrl.$onChanges = function (changeObj) {
-    console.log("Changes: ", changeObj);
-  }
-
-  $ctrl.$postLink = function () {
-    $scope.$watch('$ctrl.cookiesInList()', function (newValue, oldValue) {
-      console.log($element);
-      if (newValue === true) {
-        // Show warning
-        var warningElem = $element.find('div.error');
-        warningElem.slideDown(900);
-      }
-      else {
-        // Hide warning
-        var warningElem = $element.find('div.error');
-        warningElem.slideUp(900);
-      }
-    });
   };
 }
 
 
+// LIST #1 - controller
 ShoppingListController.$inject = ['ShoppingListFactory'];
 function ShoppingListController(ShoppingListFactory) {
   var list = this;
@@ -68,23 +39,25 @@ function ShoppingListController(ShoppingListFactory) {
 
   list.items = shoppingList.getItems();
   var origTitle = "Shopping List #1";
-  list.title = origTitle + " (" + list.items.length + " items )";
+  list.myTitle = origTitle + " (" + list.items.length + " items)";
+
+  list.warning = "COOKIES DETECTED!";
 
   list.itemName = "";
   list.itemQuantity = "";
 
   list.addItem = function () {
     shoppingList.addItem(list.itemName, list.itemQuantity);
-    list.title = origTitle + " (" + list.items.length + " items )";
-  }
+    list.title = origTitle + " (" + list.items.length + " items)";
+  };
 
   list.removeItem = function (itemIndex) {
+    console.log("'this' is: ", this);
     this.lastRemoved = "Last item removed was " + this.items[itemIndex].name;
     shoppingList.removeItem(itemIndex);
-    this.title = origTitle + " (" + list.items.length + " items )";
+    list.title = origTitle + " (" + list.items.length + " items)";
   };
 }
-
 
 // If not specified, maxItems assumed unlimited
 function ShoppingListService(maxItems) {
