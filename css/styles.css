@@ -2,14 +2,15 @@ body {
   font-size: 1.2em;
 }
 
-.error {
-  color: red;
-  font-weight: bold;
-  display: none;
+div.tabs > a, div.tabs > button {
+  margin-right: 10px;
+  font-size: 1.2em;
 }
 
-.loading-icon {
-  position: absolute;
-  left: 50%;
-  top: 10px;
+div.tabs {
+  margin-bottom: 10px;
+}
+
+.activeTab {
+  font-weight: bold;
 }
